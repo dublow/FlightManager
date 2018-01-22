@@ -35,8 +35,28 @@ namespace Infrastructure.Repositories
 
                     command.ExecuteNonQuery();
                 }
+            }
+        }
 
-                connection.Close();
+        public bool Exist(string model)
+        {
+            using (var connection = _provider.Create())
+            {
+                connection.Open();
+
+                var query =
+                    "SELECT Model FROM Aircraft where Model = @model";
+
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = query;
+                    command.CommandType = CommandType.Text;
+                    command.Parameters.Add(new SqliteParameter("@model", model));
+
+                    var reader = command.ExecuteReader();
+
+                    return reader.Read();
+                }
             }
         }
     }
