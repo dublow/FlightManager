@@ -19,5 +19,18 @@ namespace UnitTest
 
             Assert.AreEqual(252, actual);
         }
+
+        [TestMethod]
+        public void ShouldBeAbleToCalculateDistanceBetweenDepartureCDGAndDestinationSFO()
+        {
+            Airport departureAirport = new Airport("CDG", 49.0097, 2.5479);
+            Airport destinationAirport = new Airport("SFO", 37.615223, -122.389977);
+
+            AirportCalculator airportCalculator = new AirportCalculator(departureAirport, destinationAirport);
+
+            double actual = airportCalculator.GetDistance();
+
+            Assert.AreEqual(8957, actual);
+        }
     }
 }
