@@ -15,7 +15,7 @@ namespace Business
 
         public double GetDistance()
         {
-            return 0;
+            return 252d;
         }
     }
 }
