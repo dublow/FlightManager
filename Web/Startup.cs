@@ -25,6 +25,7 @@ namespace Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            ConfigureDependencyInjection(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +49,14 @@ namespace Web
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+        }
+
+        private void ConfigureDependencyInjection(IServiceCollection services)
+        {
+            IProvider provider = new SqlLiteProvider("Data Source=flight.db");
+            services.AddTransient<IFlightRepository>((serviceProvider) => new FlightRepository(provider));
+            services.AddTransient<IAircraftRepository>((serviceProvider) => new AircraftRepository(provider));
+            services.AddTransient<IAirportRepository>((serviceProvider) => new AirportRepository(provider));
         }
     }
 }
