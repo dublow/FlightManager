@@ -39,6 +39,33 @@ namespace Infrastructure.Repositories
             }
         }
 
+        public void Update(Airport airport)
+        {
+            using (var connection = _provider.Create())
+            {
+                connection.Open();
+
+                var query =
+                    "UPDATE Airport " +
+                    "SET Latitude = @latitude, " +
+                    "Longitude = @longitude " +
+                    "WHERE AitaCode = @aitaCode";
+
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = query;
+                    command.CommandType = CommandType.Text;
+                    command.Parameters.Add(new SqliteParameter("@aitaCode", airport.AitaCode));
+                    command.Parameters.Add(new SqliteParameter("@latitude", airport.Location.Latitude));
+                    command.Parameters.Add(new SqliteParameter("@longitude", airport.Location.Longitude));
+
+                    command.ExecuteNonQuery();
+                }
+
+                connection.Close();
+            }
+        }
+
         public bool Exist(string aitaCode)
         {
             using (var connection = _provider.Create())
