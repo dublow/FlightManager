@@ -1,7 +1,9 @@
 ﻿using Domain;
 using Domain.Repositories;
 using Microsoft.Data.Sqlite;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 
 namespace Infrastructure.Repositories
 {
@@ -83,6 +85,71 @@ namespace Infrastructure.Repositories
                     var reader = command.ExecuteReader();
 
                     return reader.Read();
+                }
+            }
+        }
+
+        public Aircraft Get(string model)
+        {
+            using (var connection = _provider.Create())
+            {
+                connection.Open();
+
+                var query =
+                    "SELECT * FROM Aircraft where Model = @model";
+
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = query;
+                    command.CommandType = CommandType.Text;
+                    command.Parameters.Add(new SqliteParameter("@model", model));
+
+                    var reader = command.ExecuteReader();
+
+                    var results = new List<Aircraft>();
+                    while(reader.Read())
+                    {
+                        results.Add(
+                            new Aircraft(
+                                (string)reader["Model"], 
+                                double.Parse(reader["ConsumptionPerHour"].ToString()),
+                                double.Parse(reader["CruisingSpeed"].ToString()), 
+                                double.Parse(reader["TakeOffEffort"].ToString())));
+                    }
+
+                    return results.SingleOrDefault();
+                }
+            }
+        }
+
+        public List<Aircraft> GetAll()
+        {
+            using (var connection = _provider.Create())
+            {
+                connection.Open();
+
+                var query =
+                    "SELECT * FROM Aircraft";
+
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = query;
+                    command.CommandType = CommandType.Text;
+
+                    var reader = command.ExecuteReader();
+
+                    var results = new List<Aircraft>();
+                    while (reader.Read())
+                    {
+                        results.Add(
+                            new Aircraft(
+                                (string)reader["Model"],
+                                double.Parse(reader["ConsumptionPerHour"].ToString()),
+                                double.Parse(reader["CruisingSpeed"].ToString()),
+                                double.Parse(reader["TakeOffEffort"].ToString())));
+                    }
+
+                    return results;
                 }
             }
         }
