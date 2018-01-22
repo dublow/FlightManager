@@ -20,5 +20,10 @@ namespace Business
         {
             return _distanceCalculator.GetDistance(_departure.Location, _destination.Location);
         }
+
+        public double GetFuelNeeded(Aircraft aircraft)
+        {
+            return 0d;
+        }
     }
 }

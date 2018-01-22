@@ -44,5 +44,25 @@ namespace UnitTest
 
             Assert.AreEqual(8956.68348155352, actual);
         }
+
+        [TestMethod]
+        public void ShouldBeAbleToCalculateFuelNeededBetweenDepartureCDGAndDestinationBRU()
+        {
+            Location departureLocation = new Location(49.0097, 2.5479);
+            Airport departureAirport = new Airport("CDG", departureLocation);
+
+            Location destinationLocation = new Location(50.9, 4.4836111111);
+            Airport destinationAirport = new Airport("BRU", destinationLocation);
+
+            Aircraft aircraft = new Aircraft("A380", 12000, 903);
+
+            IDistanceCalculator distanceCalculator = new DistanceMetricCalculator();
+            AirportCalculator airportCalculator = new AirportCalculator(
+                departureAirport, destinationAirport, distanceCalculator);
+
+            double actual = airportCalculator.GetFuelNeeded(aircraft);
+
+            Assert.AreEqual(3348, actual);
+        }
     }
 }
