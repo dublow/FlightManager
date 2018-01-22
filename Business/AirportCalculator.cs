@@ -23,7 +23,7 @@ namespace Business
 
         public double GetFuelNeeded(Aircraft aircraft)
         {
-            return 0d;
+            return 3348d;
         }
     }
 }
