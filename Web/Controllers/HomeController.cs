@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Domain.Repositories;
+using Infrastructure;
+using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Web.Models;
 

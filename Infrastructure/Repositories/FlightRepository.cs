@@ -40,5 +40,32 @@ namespace Infrastructure.Repositories
                 connection.Close();
             }
         }
+
+        public bool Exist(string aitaDeparture, string aitaDestination, string aircraftModel)
+        {
+            using (var connection = _provider.Create())
+            {
+                connection.Open();
+
+                var query =
+                    "SELECT aitaDeparture FROM Airport " +
+                    "WHERE AitaDeparture = @aitaDeparture " +
+                    "AND AitaDestination = @aitaDestination " +
+                    "AND AircraftModel = @aircraftModel";
+
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = query;
+                    command.CommandType = CommandType.Text;
+                    command.Parameters.Add(new SqliteParameter("@aitaDeparture", aitaDeparture));
+                    command.Parameters.Add(new SqliteParameter("@aitaDestination", aitaDestination));
+                    command.Parameters.Add(new SqliteParameter("@aircraftModel", aircraftModel));
+
+                    var reader = command.ExecuteReader();
+
+                    return reader.Read();
+                }
+            }
+        }
     }
 }

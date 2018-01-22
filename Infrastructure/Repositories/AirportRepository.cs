@@ -38,5 +38,27 @@ namespace Infrastructure.Repositories
                 connection.Close();
             }
         }
+
+        public bool Exist(string aitaCode)
+        {
+            using (var connection = _provider.Create())
+            {
+                connection.Open();
+
+                var query =
+                    "SELECT Model FROM Airport where AitaCode = @aitaCode";
+
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = query;
+                    command.CommandType = CommandType.Text;
+                    command.Parameters.Add(new SqliteParameter("@aitaCode", aitaCode));
+
+                    var reader = command.ExecuteReader();
+
+                    return reader.Read();
+                }
+            }
+        }
     }
 }
