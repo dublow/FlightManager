@@ -1,5 +1,6 @@
 using Business;
 using Domain;
+using Domain.ValueType;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTest
@@ -10,8 +11,11 @@ namespace UnitTest
         [TestMethod]
         public void ShouldBeAbleToCalculateDistanceBetweenDepartureCDGAndDestinationBRU()
         {
-            Airport departureAirport = new Airport("CDG", 49.0097, 2.5479);
-            Airport destinationAirport = new Airport("BRU", 50.9, 4.4836111111);
+            Location departureLocation = new Location(49.0097, 2.5479);
+            Airport departureAirport = new Airport("CDG", departureLocation);
+
+            Location destinationLocation = new Location(50.9, 4.4836111111);
+            Airport destinationAirport = new Airport("BRU", destinationLocation);
 
             AirportCalculator airportCalculator = new AirportCalculator(departureAirport, destinationAirport);
 
@@ -23,8 +27,11 @@ namespace UnitTest
         [TestMethod]
         public void ShouldBeAbleToCalculateDistanceBetweenDepartureCDGAndDestinationSFO()
         {
-            Airport departureAirport = new Airport("CDG", 49.0097, 2.5479);
-            Airport destinationAirport = new Airport("SFO", 37.615223, -122.389977);
+            Location departureLocation = new Location(49.0097, 2.5479);
+            Airport departureAirport = new Airport("CDG", departureLocation);
+
+            Location destinationLocation = new Location(37.615223, -122.389977);
+            Airport destinationAirport = new Airport("SFO", destinationLocation);
 
             AirportCalculator airportCalculator = new AirportCalculator(departureAirport, destinationAirport);
 

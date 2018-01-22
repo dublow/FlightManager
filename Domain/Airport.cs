@@ -1,16 +1,16 @@
-﻿namespace Domain
+﻿using Domain.ValueType;
+
+namespace Domain
 {
     public class Airport
     {
         public string AitaCode { get; }
-        public double Latitude { get; }
-        public double Longitude { get; }
+        public Location Location { get; }
 
-        public Airport(string aitaCode, double latitude, double longitude)
+        public Airport(string aitaCode, Location location)
         {
             AitaCode = aitaCode;
-            Latitude = latitude;
-            Longitude = longitude;
+            Location = location;
         }
     }
 }
