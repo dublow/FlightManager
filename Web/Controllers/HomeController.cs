@@ -28,7 +28,17 @@ namespace Web.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            var aircrafts = _aircraftRepository.GetAll();
+            var airports = _airportRepository.GetAll();
+            var flights = _flightRepository.GetAll();
+
+            var viewModel = new AllViewModel
+            {
+                Aircrafts = aircrafts,
+                Airports = airports,
+                Flights = flights
+            };
+            return View(viewModel);
         }
 
         public IActionResult About()

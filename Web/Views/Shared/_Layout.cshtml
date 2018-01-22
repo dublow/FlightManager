@@ -20,28 +20,29 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Web</a>
+                <a class="navbar-brand" href="#">Flight manager</a>
             </div>
-            <div class="navbar-collapse collapse">
+            <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li class="active"><a href="/">Show All</a></li>
+                    <li><a href="/AddFlight">Add flight</a></li>
+                    <li><a href="/AddAircraft">Add aircraft</a></li>
+                    <li><a href="/AddAirport">Add airport</a></li>
                 </ul>
-            </div>
+            </div><!--/.nav-collapse -->
         </div>
     </nav>
-    <div class="container body-content">
+    <div class="container">
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2018 - Web</p>
+            <p>&copy; 2018 - Flight manager</p>
         </footer>
     </div>
 
