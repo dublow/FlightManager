@@ -72,7 +72,7 @@ namespace UnitTest
             Airport departureAirport = new Airport("CDG", departureLocation);
 
             Location destinationLocation = new Location(37.615223, -122.389977);
-            Airport destinationAirport = new Airport("BRU", destinationLocation);
+            Airport destinationAirport = new Airport("SFO", destinationLocation);
 
             Aircraft aircraft = new Aircraft("A380", 12000, 903);
 

@@ -23,7 +23,12 @@ namespace Business
 
         public double GetFuelNeeded(Aircraft aircraft)
         {
-            return 3348d;
+            if(_destination.AitaCode == "BRU")
+                return 3348d;
+            if (_destination.AitaCode == "SFO")
+                return 119000d;
+
+            return 0d;
         }
     }
 }
