@@ -1,4 +1,5 @@
 ﻿using Domain.ValueType;
+using System;
 
 namespace Domain
 {
@@ -9,6 +10,12 @@ namespace Domain
 
         public Airport(string aitaCode, Location location)
         {
+            if (string.IsNullOrEmpty(aitaCode))
+                throw new ArgumentNullException(nameof(aitaCode));
+
+            if (location == null)
+                throw new ArgumentNullException(nameof(location));
+
             AitaCode = aitaCode;
             Location = location;
         }
