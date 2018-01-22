@@ -40,6 +40,36 @@ namespace Infrastructure.Repositories
                 connection.Close();
             }
         }
+        public void Update(Flight flight)
+        {
+            using (var connection = _provider.Create())
+            {
+                connection.Open();
+
+                var query =
+                    "UPDATE Flight " +
+                    "SET Distance = @distance, " +
+                    "FuelNeeded = @fuelNeeded " +
+                    "WHERE AitaCodeDeparture = @aitaCodeDeparture " +
+                    "AND AitaCodeDestination = @aitaCodeDestination " +
+                    "AND AircraftModel = @aircraftModel";
+
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = query;
+                    command.CommandType = CommandType.Text;
+                    command.Parameters.Add(new SqliteParameter("@aitaCodeDeparture", flight.AitaCodeDeparture));
+                    command.Parameters.Add(new SqliteParameter("@aitaCodeDestination", flight.AitaCodeDestination));
+                    command.Parameters.Add(new SqliteParameter("@aircraftModel", flight.AircraftModel));
+                    command.Parameters.Add(new SqliteParameter("@distance", flight.Distance));
+                    command.Parameters.Add(new SqliteParameter("@fuelNeeded", flight.FuelNeeded));
+
+                    command.ExecuteNonQuery();
+                }
+
+                connection.Close();
+            }
+        }
 
         public bool Exist(string aitaDeparture, string aitaDestination, string aircraftModel)
         {

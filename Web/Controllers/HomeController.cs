@@ -13,6 +13,19 @@ namespace Web.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IAircraftRepository _aircraftRepository;
+        private readonly IAirportRepository _airportRepository;
+        private readonly IFlightRepository _flightRepository;
+
+        public HomeController(
+            IAircraftRepository aircraftRepository, 
+            IAirportRepository airportRepository, 
+            IFlightRepository flightRepository)
+        {
+            _aircraftRepository = aircraftRepository;
+            _airportRepository = airportRepository;
+            _flightRepository = flightRepository;
+        }
         public IActionResult Index()
         {
             return View();
