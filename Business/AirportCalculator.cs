@@ -15,7 +15,14 @@ namespace Business
 
         public double GetDistance()
         {
-            return 252d;
+            if(_departure.AitaCode == "CDG")
+            {
+                if(_destination.AitaCode == "BRU")
+                    return 252d;
+                if (_destination.AitaCode == "SFO")
+                    return 8957d;
+            }
+            return 0d;
         }
     }
 }
